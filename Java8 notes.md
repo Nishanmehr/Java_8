@@ -694,8 +694,610 @@ Java
 
 **Function is a Functional Interface that takes an input, performs an operation, and returns a result. It contains the `apply()` method and provides methods like `andThen()`, `compose()`, and `identity()`.**
 
+# Consumer Interface
+
+`Consumer` is a predefined Functional Interface introduced in Java 8.
+
+It accepts an input and performs an operation on it but does not return any value.
+
+## Abstract Method
+
+```java
+void accept(T t);
+```
+
+> Consumer contains the `accept()` method, not `apply()`.
+
+## Example
+
+```java
+Consumer<String> c = name -> System.out.println(name);
+
+c.accept("Nishant");
+```
+
+## Output
+
+```text
+Nishant
+```
+
+# Important Method
+
+## andThen()
+
+Used to chain multiple Consumer operations.
+
+```java
+Consumer<String> c1 = s -> System.out.println(s);
+Consumer<String> c2 = s -> System.out.println(s.toUpperCase());
+
+c1.andThen(c2).accept("java");
+```
+
+### Output
+
+```text
+java
+JAVA
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Predefined Functional Interface.
+- Takes input and consumes it.
+- Does not return any value.
+- Contains `accept()` method.
+- Supports `andThen()` for chaining operations.
+
+## Interview Answer
+
+**Consumer is a Functional Interface that accepts an input and performs an operation on it without returning any value. It contains the `accept()` method.**
+
+# Supplier Interface
+
+`Supplier` is a predefined Functional Interface introduced in Java 8.
+
+It does not take any input and only supplies (returns) a value.
+
+## Abstract Method
+
+```java
+T get();
+```
+
+## Example
+
+```java
+Supplier<String> s = () -> "Hello Java";
+
+System.out.println(s.get());
+```
+
+## Output
+
+```text
+Hello Java
+```
+
+## Example 2
+
+```java
+Supplier<Integer> s = () -> 100;
+
+System.out.println(s.get());
+```
+
+## Output
+
+```text
+100
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Predefined Functional Interface.
+- Takes no input.
+- Only provides output.
+- Contains `get()` method.
+- Opposite of Consumer.
+
+## Interview Answer
+
+**Supplier is a Functional Interface that does not take any input and only returns a value. It contains the `get()` method.**
 
 
+
+# BiPredicate Interface
+
+`BiPredicate` is a predefined Functional Interface introduced in Java 8.
+
+It works like `Predicate`, but it accepts **two input values** instead of one and returns a boolean value (`true` or `false`).
+
+When a condition needs to be checked on two inputs at the same time, we use `BiPredicate`.
+
+## Abstract Method
+
+```java
+boolean test(T t, U u);
+```
+
+## Example
+
+```java
+BiPredicate<Integer, Integer> p =
+        (a, b) -> a > b;
+
+System.out.println(p.test(20, 10));
+```
+
+## Output
+
+```text
+true
+```
+
+## Important Methods
+
+### and()
+
+Returns `true` only if both conditions are satisfied.
+
+```java
+p1.and(p2);
+```
+
+### or()
+
+Returns `true` if at least one condition is satisfied.
+
+```java
+p1.or(p2);
+```
+
+### negate()
+
+Returns the opposite result.
+
+```java
+p.negate();
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Similar to Predicate.
+- Accepts two input values.
+- Returns `true` or `false`.
+- Contains `test()` method.
+- Supports `and()`, `or()`, and `negate()`.
+
+## Interview Answer
+
+**BiPredicate is a Functional Interface that accepts two input values, checks a condition, and returns a boolean value (`true` or `false`). It is used when a Predicate needs to work with two inputs.**
+
+
+# BiFunction Interface
+
+`BiFunction` is a predefined Functional Interface introduced in Java 8.
+
+It works like `Function`, but it accepts **two input values** and returns a result.
+
+## Abstract Method
+
+```java
+R apply(T t, U u);
+```
+
+## Example
+
+```java
+BiFunction<Integer, Integer, Integer> add =
+        (a, b) -> a + b;
+
+System.out.println(add.apply(10, 20));
+```
+
+## Output
+
+```text
+30
+```
+
+## Important Method
+
+### andThen()
+
+Used to perform another operation on the result returned by `BiFunction`.
+
+```java
+BiFunction<Integer, Integer, Integer> add =
+        (a, b) -> a + b;
+
+Function<Integer, Integer> square =
+        n -> n * n;
+
+System.out.println(add.andThen(square).apply(10, 20));
+```
+
+### Flow
+
+```text
+10 + 20 = 30
+30 * 30 = 900
+```
+
+### Output
+
+```text
+900
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Similar to Function.
+- Accepts two input values.
+- Returns one output value.
+- Contains `apply()` method.
+- Supports `andThen()` method.
+
+## Interview Answer
+
+**BiFunction is a Functional Interface that accepts two input values, performs an operation, and returns a result. It contains the `apply()` method.**
+
+
+# BiConsumer Interface
+
+`BiConsumer` is a predefined Functional Interface introduced in Java 8.
+
+It works like `Consumer`, but it accepts **two input values** and does not return any value.
+
+It is generally used when an operation needs two inputs.
+
+## Abstract Method
+
+```java
+void accept(T t, U u);
+```
+
+## Example
+
+```java
+BiConsumer<String, Integer> c =
+        (name, age) -> System.out.println(name + " " + age);
+
+c.accept("Nishant", 22);
+```
+
+## Output
+
+```text
+Nishant 22
+```
+
+## Important Method
+
+### andThen()
+
+Used to chain multiple BiConsumer operations.
+
+```java
+BiConsumer<String, Integer> c1 =
+        (name, age) -> System.out.println(name);
+
+BiConsumer<String, Integer> c2 =
+        (name, age) -> System.out.println(age);
+
+c1.andThen(c2).accept("Nishant", 22);
+```
+
+## Output
+
+```text
+Nishant
+22
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Similar to Consumer.
+- Accepts two input values.
+- Does not return any value.
+- Contains `accept()` method.
+- Supports `andThen()` method.
+
+## Interview Answer
+
+**BiConsumer is a Functional Interface that accepts two input values and performs an operation without returning any value. It contains the `accept()` method.**
+
+
+# UnaryOperator Interface
+
+`UnaryOperator` is a predefined Functional Interface introduced in Java 8.
+
+It is a special type of `Function` where the input type and return type are the same.
+
+## Abstract Method
+
+```java
+T apply(T t);
+```
+
+## Example
+
+```java
+UnaryOperator<Integer> square =
+        n -> n * n;
+
+System.out.println(square.apply(5));
+```
+
+## Output
+
+```text
+25
+```
+
+## Example 2
+
+```java
+UnaryOperator<String> upper =
+        str -> str.toUpperCase();
+
+System.out.println(upper.apply("java"));
+```
+
+## Output
+
+```text
+JAVA
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Child Interface of `Function`.
+- Takes one input.
+- Returns one output.
+- Input type and return type must be the same.
+- Contains `apply()` method.
+
+## Interview Answer
+
+**UnaryOperator is a special type of Function interface where the input type and return type are the same. It contains the `apply()` method and is used to perform operations on a single value and return the same type of result.**
+
+# BinaryOperator Interface
+
+`BinaryOperator` is a predefined Functional Interface introduced in Java 8.
+
+It is a special type of `BiFunction` where both input types and the return type are the same.
+
+## Abstract Method
+
+```java
+T apply(T t1, T t2);
+```
+
+## Example
+
+```java
+BinaryOperator<Integer> add =
+        (a, b) -> a + b;
+
+System.out.println(add.apply(10, 20));
+```
+
+## Output
+
+```text
+30
+```
+
+## Example 2
+
+```java
+BinaryOperator<Integer> max =
+        (a, b) -> a > b ? a : b;
+
+System.out.println(max.apply(10, 20));
+```
+
+## Output
+
+```text
+20
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Child Interface of `BiFunction`.
+- Takes two input values.
+- Returns one output value.
+- Both input types and return type must be the same.
+- Contains `apply()` method.
+
+## Interview Answer
+
+**BinaryOperator is a special type of BiFunction where both input parameters and the return type are the same. It is used to perform operations on two values of the same type and return a result of the same type.**
+
+
+
+# Method Reference (::)
+
+Method Reference is a short form of a Lambda Expression.
+
+It is used when a Lambda Expression only calls an existing method.
+
+Instead of writing a lambda, we can directly refer to the method using the `::` operator.
+
+## Syntax
+
+```java
+ClassName::methodName
+```
+
+## Example
+
+### Using Lambda
+
+```java
+List<String> names = Arrays.asList("Java", "Python", "Spring");
+
+names.forEach(name -> System.out.println(name));
+```
+
+### Using Method Reference
+
+```java
+List<String> names = Arrays.asList("Java", "Python", "Spring");
+
+names.forEach(System.out::println);
+```
+
+## Output
+
+```text
+Java
+Python
+Spring
+```
+
+## Types of Method References
+
+### 1. Static Method Reference
+
+```java
+ClassName::staticMethod
+```
+
+Example:
+
+```java
+Math::max
+```
+
+### 2. Instance Method Reference of an Object
+
+```java
+objectReference::methodName
+```
+
+Example:
+
+```java
+System.out::println
+```
+
+### 3. Instance Method Reference of a Class
+
+```java
+ClassName::methodName
+```
+
+Example:
+
+```java
+String::toUpperCase
+```
+
+### 4. Constructor Reference
+
+```java
+ClassName::new
+```
+
+Example:
+
+```java
+Supplier<String> s = String::new;
+```
+
+## Key Points
+
+- Introduced in Java 8.
+- Uses `::` operator.
+- Short form of Lambda Expression.
+- Improves readability.
+- Used when Lambda only calls an existing method.
+
+## Interview Answer
+
+**Method Reference is a shorthand form of a Lambda Expression used to refer to an existing method or constructor using the `::` operator.**
+
+
+
+# Constructor Reference (::new)
+
+Constructor Reference is a special type of Method Reference used to call a constructor.
+
+Instead of creating an object using a Lambda Expression, we can directly refer to the constructor using the `::new` operator.
+
+## Syntax
+
+```java
+ClassName::new
+```
+
+## Using Lambda
+
+```java
+Supplier<User> s = () -> new User();
+```
+
+## Using Constructor Reference
+
+```java
+Supplier<User> s = User::new;
+```
+
+## Example
+
+```java
+class User {
+    User() {
+        System.out.println("User Object Created");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Supplier<User> s = User::new;
+
+        s.get();
+    }
+}
+```
+
+## Output
+
+```text
+User Object Created
+```
+
+## Why Use Constructor Reference?
+
+- Less code
+- Better readability
+- Short form of Lambda Expression
+- Used for object creation
+
+## Key Points
+
+- Uses `::new`.
+- Special type of Method Reference.
+- Refers to a constructor.
+- Creates objects without writing Lambda code.
+- Works with Functional Interfaces.
+
+## Interview Answer
+
+**Constructor Reference is a shorthand way to call a constructor using the `::new` operator. It is used to create objects in a cleaner and more readable way.**
 
 
 
