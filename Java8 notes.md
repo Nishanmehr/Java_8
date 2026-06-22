@@ -1300,8 +1300,611 @@ User Object Created
 **Constructor Reference is a shorthand way to call a constructor using the `::new` operator. It is used to create objects in a cleaner and more readable way.**
 
 
+# Stream API
+
+Stream API was introduced in Java 8.
+
+It is used to process collection data in a declarative way.
+
+## What is Declarative Programming?
+
+Declarative programming means focusing on **what to do** instead of **how to do it**.
+
+Examples:
+
+- filter()
+- map()
+- reduce()
+- collect()
+
+## Why Stream API?
+
+- Better readability
+- Less code
+- More flexibility
+- Easy parallel processing
+- Better encapsulation of logic
+
+## Creating Streams
+
+### List to Stream
+
+```java
+List<Integer> list = Arrays.asList(10, 20, 30);
+
+Stream<Integer> stream = list.stream();
+```
+
+### Direct Stream
+
+```java
+Stream<Integer> stream =
+        Stream.of(10, 20, 30);
+```
+
+### Array to Stream
+
+```java
+int[] arr = {10, 20, 30};
+
+IntStream stream = Arrays.stream(arr);
+```
+
+### Using iterate()
+
+```java
+Stream.iterate(1, n -> n + 1)
+      .limit(5)
+      .forEach(System.out::println);
+```
+
+### Using generate()
+
+```java
+Stream.generate(() -> "Java")
+      .limit(3)
+      .forEach(System.out::println);
+```
+
+# Intermediate Operations
+
+These operations return a Stream.
+
+## filter()
+
+Used to filter data based on a condition.
+
+```java
+list.stream()
+    .filter(n -> n > 10);
+```
+
+## map()
+
+Used to transform data.
+
+```java
+list.stream()
+    .map(n -> n * n);
+```
+
+## distinct()
+
+Removes duplicate elements.
+
+```java
+list.stream()
+    .distinct();
+```
+
+## sorted()
+
+Sorts elements.
+
+```java
+list.stream()
+    .sorted();
+```
+
+## skip()
+
+Skips specified number of elements.
+
+```java
+list.stream()
+    .skip(2);
+```
+
+## limit()
+
+Limits the number of elements.
+
+```java
+list.stream()
+    .limit(3);
+```
+
+## peek()
+
+Used to view elements during processing.
+
+```java
+list.stream()
+    .peek(System.out::println);
+```
+
+# Terminal Operations
+
+These operations produce the final result.
+
+## collect()
+
+Collects elements into a Collection.
+
+```java
+list.stream()
+    .collect(Collectors.toList());
+```
+
+## forEach()
+
+Performs an action on each element.
+
+```java
+list.stream()
+    .forEach(System.out::println);
+```
+
+## count()
+
+Returns total number of elements.
+
+```java
+long count = list.stream().count();
+```
+
+## min()
+
+Returns the minimum element.
+
+```java
+list.stream()
+    .min(Integer::compareTo);
+```
+
+## max()
+
+Returns the maximum element.
+
+```java
+list.stream()
+    .max(Integer::compareTo);
+```
+
+## reduce()
+
+Combines all elements into a single result.
+
+```java
+list.stream()
+    .reduce(0, Integer::sum);
+```
+
+# Stream Flow
+
+```text
+Collection
+    ↓
+ Stream
+    ↓
+filter()
+    ↓
+map()
+    ↓
+sorted()
+    ↓
+collect()
+```
+
+# Key Points
+
+- Introduced in Java 8.
+- Used to process collections.
+- Supports declarative programming.
+- Improves readability and flexibility.
+- Supports parallel processing.
+- Intermediate operations return a Stream.
+- Terminal operations produce the final result.
+
+# Common Stream Methods
+
+### Intermediate Operations
+
+- filter()
+- map()
+- distinct()
+- sorted()
+- skip()
+- limit()
+- peek()
+
+### Terminal Operations
+
+- collect()
+- forEach()
+- count()
+- min()
+- max()
+- reduce()
+
+# Interview Answer
+
+**Stream API is used to process collection data in a declarative way. It provides operations like filter(), map(), distinct(), sorted(), reduce(), collect(), min(), max(), and count() to write cleaner, more readable, and efficient code.**
 
 
+
+# Date and Time API (Java 8)
+
+Java 8 introduced a new Date and Time API in the `java.time` package.
+
+## Why Java 8 Date and Time API?
+
+### Problems Before Java 8
+
+- Mutable
+- Not Thread Safe
+- Difficult to Use
+- Limited Time Zone Support
+
+### Advantages
+
+- Immutable
+- Thread Safe
+- Better Time Zone Support
+- Easy Date and Time Calculations
+- Better Readability
+
+---
+
+# 1. LocalDate
+
+Used to represent only Date.
+
+```java
+import java.time.LocalDate;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalDate date = LocalDate.now();
+
+        System.out.println(date);
+    }
+}
+```
+
+### Output
+
+```text
+2026-06-23
+```
+
+### Common Methods
+
+```java
+LocalDate date = LocalDate.now();
+
+System.out.println(date.getDayOfMonth());
+System.out.println(date.getMonth());
+System.out.println(date.getYear());
+
+System.out.println(date.plusDays(5));
+System.out.println(date.minusDays(5));
+```
+
+---
+
+# 2. LocalTime
+
+Used to represent only Time.
+
+```java
+import java.time.LocalTime;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalTime time = LocalTime.now();
+
+        System.out.println(time);
+    }
+}
+```
+
+### Output
+
+```text
+14:35:20.123
+```
+
+### Common Methods
+
+```java
+LocalTime time = LocalTime.now();
+
+System.out.println(time.getHour());
+System.out.println(time.getMinute());
+
+System.out.println(time.plusHours(2));
+System.out.println(time.minusMinutes(10));
+```
+
+---
+
+# 3. LocalDateTime
+
+Used to represent both Date and Time.
+
+```java
+import java.time.LocalDateTime;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalDateTime dt = LocalDateTime.now();
+
+        System.out.println(dt);
+    }
+}
+```
+
+### Output
+
+```text
+2026-06-23T14:35:20.123
+```
+
+---
+
+# 4. ZonedDateTime
+
+Used to represent Date, Time and Time Zone.
+
+```java
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        ZonedDateTime zdt =
+                ZonedDateTime.now(
+                        ZoneId.of("Asia/Kolkata"));
+
+        System.out.println(zdt);
+    }
+}
+```
+
+### Output
+
+```text
+2026-06-23T14:35:20.123+05:30[Asia/Kolkata]
+```
+
+---
+
+# 5. Instant
+
+Represents a timestamp in UTC.
+
+```java
+import java.time.Instant;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        Instant instant = Instant.now();
+
+        System.out.println(instant);
+    }
+}
+```
+
+### Output
+
+```text
+2026-06-23T09:05:20.123Z
+```
+
+---
+
+# 6. Period
+
+Used to calculate difference between two Dates.
+
+```java
+import java.time.LocalDate;
+import java.time.Period;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalDate d1 =
+                LocalDate.of(2000, 1, 1);
+
+        LocalDate d2 =
+                LocalDate.of(2026, 6, 23);
+
+        Period p =
+                Period.between(d1, d2);
+
+        System.out.println(p);
+    }
+}
+```
+
+### Output
+
+```text
+P26Y5M22D
+```
+
+### Readable Output
+
+```java
+System.out.println(
+        p.getYears() + " Years " +
+        p.getMonths() + " Months " +
+        p.getDays() + " Days");
+```
+
+### Output
+
+```text
+26 Years 5 Months 22 Days
+```
+
+---
+
+# 7. Duration
+
+Used to calculate difference between two Times.
+
+```java
+import java.time.Duration;
+import java.time.LocalTime;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalTime t1 =
+                LocalTime.of(10, 0);
+
+        LocalTime t2 =
+                LocalTime.of(12, 30);
+
+        Duration d =
+                Duration.between(t1, t2);
+
+        System.out.println(d);
+    }
+}
+```
+
+### Output
+
+```text
+PT2H30M
+```
+
+### Readable Output
+
+```java
+System.out.println(d.toHours());
+System.out.println(d.toMinutes());
+```
+
+### Output
+
+```text
+2
+150
+```
+
+---
+
+# 8. DateTimeFormatter
+
+Used to format Date and Time.
+
+```java
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        LocalDate date = LocalDate.now();
+
+        DateTimeFormatter formatter =
+                DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        System.out.println(date.format(formatter));
+    }
+}
+```
+
+### Output
+
+```text
+23-06-2026
+```
+
+---
+
+# Common Patterns
+
+```java
+DateTimeFormatter.ofPattern("dd/MM/yyyy");
+```
+
+### Output
+
+```text
+23/06/2026
+```
+
+```java
+DateTimeFormatter.ofPattern("dd MMM yyyy");
+```
+
+### Output
+
+```text
+23 Jun 2026
+```
+
+```java
+DateTimeFormatter.ofPattern("HH:mm:ss");
+```
+
+### Output
+
+```text
+14:35:20
+```
+
+---
+
+# Difference Between Period and Duration
+
+| Period | Duration |
+|----------|----------|
+| Date Based | Time Based |
+| Years, Months, Days | Hours, Minutes, Seconds |
+| Uses LocalDate | Uses LocalTime / Instant |
+
+---
+
+# Important Classes Summary
+
+| Class | Purpose |
+|---------|---------|
+| LocalDate | Date Only |
+| LocalTime | Time Only |
+| LocalDateTime | Date and Time |
+| ZonedDateTime | Date, Time and Time Zone |
+| Instant | UTC Timestamp |
+| Period | Difference Between Dates |
+| Duration | Difference Between Times |
+| DateTimeFormatter | Format Date and Time |
+
+---
+
+# Interview Answer
+
+**Java 8 introduced the `java.time` package to replace the old Date and Calendar API. The new API is immutable, thread-safe, easy to use, and provides better support for date, time, formatting, and time zones through classes like LocalDate, LocalTime, LocalDateTime, ZonedDateTime, Instant, Period, Duration, and DateTimeFormatter.**
 
 
 
