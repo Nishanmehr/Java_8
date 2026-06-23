@@ -1908,6 +1908,186 @@ DateTimeFormatter.ofPattern("HH:mm:ss");
 
 
 
+# Optional Class (Java 8)
+
+`Optional` is a container object introduced in Java 8.
+
+It is used to avoid **NullPointerException (NPE)** and handle null values safely.
+
+---
+
+# Why Optional?
+
+Before Java 8:
+
+```java
+String name = null;
+System.out.println(name.length()); // NullPointerException
+```
+
+---
+
+# With Optional
+
+```java
+import java.util.Optional;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        String name = "Java";
+
+        Optional<String> opt = Optional.ofNullable(name);
+
+        if (opt.isPresent()) {
+            System.out.println(opt.get());
+        }
+    }
+}
+```
+
+### Output
+
+```text
+Java
+```
+
+---
+
+# Creating Optional
+
+## 1. of()
+
+Used when value is NOT null.
+
+```java
+Optional<String> opt = Optional.of("Hello");
+```
+
+---
+
+## 2. ofNullable()
+
+Used when value can be null.
+
+```java
+Optional<String> opt = Optional.ofNullable(null);
+```
+
+---
+
+## 3. empty()
+
+Creates empty Optional.
+
+```java
+Optional<String> opt = Optional.empty();
+```
+
+---
+
+# Important Methods
+
+## 1. isPresent()
+
+Checks value is present or not.
+
+```java
+opt.isPresent();
+```
+
+---
+
+## 2. get()
+
+Returns value (use carefully).
+
+```java
+opt.get();
+```
+
+---
+
+## 3. orElse()
+
+Returns value if present, otherwise default value.
+
+```java
+System.out.println(opt.orElse("Default Value"));
+```
+
+---
+
+## 4. orElseGet()
+
+Returns value or executes supplier.
+
+```java
+System.out.println(opt.orElseGet(() -> "Default Value"));
+```
+
+---
+
+## 5. orElseThrow()
+
+Throws exception if value is not present.
+
+```java
+opt.orElseThrow(() -> new RuntimeException("Value not found"));
+```
+
+---
+
+## 6. ifPresent()
+
+Executes code only if value is present.
+
+```java
+opt.ifPresent(val -> System.out.println(val));
+```
+
+---
+
+# Example (Best Practice)
+
+```java
+import java.util.Optional;
+
+public class Demo {
+    public static void main(String[] args) {
+
+        String name = null;
+
+        Optional<String> opt = Optional.ofNullable(name);
+
+        System.out.println(opt.orElse("No Value"));
+    }
+}
+```
+
+### Output
+
+```text
+No Value
+```
+
+---
+
+# Key Points
+
+- Introduced in Java 8.
+- Used to avoid NullPointerException.
+- Wraps a value inside a container.
+- Helps write clean and safe code.
+- Common methods: `of()`, `ofNullable()`, `empty()`, `orElse()`, `ifPresent()`.
+
+---
+
+# Interview Answer
+
+**Optional is a container class introduced in Java 8 used to handle null values safely and avoid NullPointerException. It provides methods like orElse(), ifPresent(), and ofNullable() to handle values cleanly.**
+
+
 
 
 
